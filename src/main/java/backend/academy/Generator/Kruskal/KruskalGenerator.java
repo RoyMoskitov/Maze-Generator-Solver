@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//works only with odd height and width that are greater than 1
+/**
+ * algorithm for maze generation, constructs a minimum spanning tree of a weighted connected undirected graph
+ */
 public class KruskalGenerator implements Generator {
     final static Integer[][] DIRECTIONS = {{0, 2}, {2, 0}, {-2, 0}, {0, -2}};
     private final SecureRandom random;
@@ -69,6 +71,12 @@ public class KruskalGenerator implements Generator {
         return new Maze(height, width, grid);
     }
 
+    /**
+     * help function for wall removal
+     * @param grid maze grid
+     * @param cell1 the first cell between which the desired one is located
+     * @param cell2 the second cell between which the desired one is located
+     */
     private void removeWall(Cell[][] grid, Cell cell1, Cell cell2) {
         int row = (int) ((long) cell1.row() + (long) cell2.row()) / 2;
         int col = (int) ((long) cell1.col() + (long) cell2.col()) / 2;
@@ -80,6 +88,12 @@ public class KruskalGenerator implements Generator {
         }
     }
 
+    /**
+     * function for getting valid neighbours next to the cell, on the left, right, up and down
+     * @param current main cell
+     * @param grid maze grid
+     * @return valid neighbour cells
+     */
     private List<Cell> getValidNeighbours(Cell current, Cell[][] grid) {
         List<Integer[]> directions = new ArrayList<>(Arrays.asList(DIRECTIONS));
         List<Cell> neighbours = new ArrayList<>();
@@ -96,11 +110,25 @@ public class KruskalGenerator implements Generator {
         return neighbours;
     }
 
+    /**
+     * checks whether wall between two cells exists
+     * @param grid maze gris
+     * @param cell1 the first cell between which function checks
+     * @param cell2 the second cell between which function checks
+     * @return true if wall exists, false otherwise
+     */
     private boolean wallExists(Cell[][] grid, Cell cell1, Cell cell2) {
         return grid[(int) ((long) cell1.row() + (long) cell2.row()) / 2]
             [(int) ((long) cell1.col() + (long) cell2.col()) / 2].type() == Cell.Type.WALL;
     }
 
+    /**
+     * checks whether cell is in maze bounds
+     * @param row cell's row, Y coordinate
+     * @param col cell's col, X coordinate
+     * @param grid maze grid
+     * @return true if cell is on bounds, false otherwise
+     */
     private boolean inBounds(int row, int col, Cell[][] grid) {
         return row > 0 && col > 0 && row < grid.length - 1 && col < grid[0].length - 1;
     }

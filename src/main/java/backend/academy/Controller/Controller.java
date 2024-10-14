@@ -14,6 +14,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import static org.apache.commons.validator.GenericValidator.isInt;
 
+/**
+ * Controller of maze creation and solving process
+ */
 public class Controller {
     private final PrintStream output;
     private final Scanner scannerInput;
@@ -25,10 +28,13 @@ public class Controller {
         renderer = new SimpleConsoleRenderer();
     }
 
+    /**
+     * main function that starts the application
+     */
     public void processMazeSolving() {
         while (true) {
             while (true) {
-                output.println("Press \"Enter\" to create and solve maze or \"q\" to quit");
+                output.println("Press \"Enter\" to create and solve maze or \"q\" to quit: ");
                 String input = scannerInput.nextLine();
                 if ("q".equals(input)) {
                     return;
@@ -47,6 +53,12 @@ public class Controller {
         }
     }
 
+    /**
+     * function that returns a coordinate depending on user input
+     * @param maze maze
+     * @param type name of requested coordinate
+     * @return coordinate
+     */
     private Coordinate chooseCoordinate(Maze maze, String type) {
         int height;
         int width;
@@ -61,6 +73,12 @@ public class Controller {
         return new Coordinate(height, width);
     }
 
+    /**
+     * function that returns one enum option depending on user input
+     * @param clazz enum to choose from
+     * @return one of enum values
+     * @param <T> any enum class
+     */
     private <T extends Enum<T>> T chooseEnumOption(Class<T> clazz) {
         String choice;
         T[] enumConstants = clazz.getEnumConstants();
@@ -77,6 +95,10 @@ public class Controller {
         return enumConstants[Integer.parseInt(choice) - 1];
     }
 
+    /**
+     * function for maze creating
+     * @return maze
+     */
     private Maze createMaze() {
         Generator generator = MazeFactory.createGenerator(chooseEnumOption(MazeGeneratorType.class));
         if (generator.getClass() == KruskalGenerator.class) {
@@ -87,10 +109,21 @@ public class Controller {
         return generator.generate(height, width);
     }
 
+    /**
+     * function for maze solver creating
+     * @return maze solver
+     */
     private Solver createSolver() {
         return MazeFactory.createSolver(chooseEnumOption(MazeSolverType.class));
     }
 
+    /**
+     * function that returns integer number depending on user input
+     * @param min lower bound
+     * @param max upper bound
+     * @param type requested parameter name
+     * @return chosen number
+     */
     private int chooseNumber(int min, int max, String type) {
         String choice;
         do {

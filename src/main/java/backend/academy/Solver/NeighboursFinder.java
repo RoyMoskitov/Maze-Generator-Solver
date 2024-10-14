@@ -5,6 +5,10 @@ import backend.academy.Maze.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * help class that both bfs and handOnWall algorithms use to find valid neighbours
+ */
+
 public class NeighboursFinder {
 
     private NeighboursFinder() {

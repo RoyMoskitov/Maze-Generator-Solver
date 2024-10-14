@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * class to describe the properties of maze
+ */
 @AllArgsConstructor
 @Getter
 @Setter

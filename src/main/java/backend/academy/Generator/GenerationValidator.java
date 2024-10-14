@@ -5,6 +5,11 @@ public class GenerationValidator {
     private GenerationValidator() {
     }
 
+    /**
+     * checks whether height and width are within boundaries
+     * @param height height
+     * @param width width
+     */
     public static void validate(int height, int width) {
         StringBuilder errorMessage = new StringBuilder();
         if (height < Generator.MIN_MAZE_HEIGHT) {

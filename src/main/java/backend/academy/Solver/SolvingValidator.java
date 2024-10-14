@@ -3,6 +3,9 @@ package backend.academy.Solver;
 import backend.academy.Maze.Cell;
 import backend.academy.Maze.Coordinate;
 
+/**
+ * class that checks whether start and end point are valid (are not walls)
+ */
 public class SolvingValidator {
 
     private SolvingValidator() {

@@ -5,12 +5,19 @@ import backend.academy.Maze.Coordinate;
 import backend.academy.Maze.Maze;
 import java.util.List;
 
+/**
+ * simplest implementation of renderer that uses green colour to show path in maze
+ */
 public class SimpleConsoleRenderer implements Renderer {
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_RED = "\u001B[31m";
 
+    /**
+     * function to create maze image
+     * @param maze maze
+     * @return string picture
+     */
     @Override
     @SuppressWarnings("MultipleStringLiterals")
     public String render(Maze maze) {
@@ -42,6 +49,12 @@ public class SimpleConsoleRenderer implements Renderer {
         return res.toString();
     }
 
+    /**
+     * function to create maze string picture with path in it
+     * @param maze maze
+     * @param path path
+     * @return maze picture with green path
+     */
     @Override
     public String render(Maze maze, List<Coordinate> path) {
         Cell[][] gridCopy = new Cell[maze.height()][maze.width()];

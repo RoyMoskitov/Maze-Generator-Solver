@@ -12,6 +12,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * a maze solver, this algorithm first goes from beginning to end strictly along the left side,
+ * if it reaches a dead end where there is no coin, then such a dead end will be removed from the original path,
+ * then it similarly goes along the right side and then both paths are merged
+ */
 public class HandOnWallSolver implements Solver {
 
     @Override
@@ -33,6 +38,14 @@ public class HandOnWallSolver implements Solver {
         return mergeLists(paths);
     }
 
+    /**
+     * creates left or right hand on wall path, depending on priority calculator
+     * @param maze maze
+     * @param start start coordinate
+     * @param end end coordinate
+     * @param priorityCalculator priority calculator (right/left)
+     * @param path created path
+     */
     @SuppressWarnings("MagicNumber")
     public void makeOneHandPath(
         Maze maze, Coordinate start, Coordinate end,
@@ -78,6 +91,11 @@ public class HandOnWallSolver implements Solver {
 
     }
 
+    /**
+     * hekp function to merge right and left paths
+     * @param lists list of paths
+     * @return merged list
+     */
     private List<Coordinate> mergeLists(List<List<Coordinate>> lists) {
         return lists.stream()
             .flatMap(Collection::stream)

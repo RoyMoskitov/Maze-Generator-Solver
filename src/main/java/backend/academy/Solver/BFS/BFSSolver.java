@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
+/**
+ * modernized version of bfs, that firstly finds paths to the end coordinate and all accessible coins
+ * and then merge them, leaving only unique cells
+ */
 public class BFSSolver implements Solver {
 
     @Override
@@ -48,6 +52,14 @@ public class BFSSolver implements Solver {
         return mergeLists(makeListOfPaths(listOfDestinations, parent, start));
     }
 
+    /**
+     * help function that creates list of paths all of which starts at the start coordinate
+     * and end up on the coordinate in listOfDestinations
+     * @param listOfDestinations list of end cells
+     * @param parent matrix where all parent cells are located, needed to restore the path
+     * @param start start cell
+     * @return list of paths
+     */
     private List<List<Coordinate>> makeListOfPaths(
         List<Coordinate> listOfDestinations, Coordinate[][] parent, Coordinate start
     ) {
@@ -65,6 +77,11 @@ public class BFSSolver implements Solver {
         return listOfPaths;
     }
 
+    /**
+     * function that creates one path with unique coordinates out of list of lists of coordinates
+     * @param lists list of lists
+     * @return list of unique coordinates
+     */
     private List<Coordinate> mergeLists(List<List<Coordinate>> lists) {
         return lists.stream()
             .flatMap(Collection::stream)

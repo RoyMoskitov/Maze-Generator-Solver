@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * algorithm for maze generation, a randomized version of the depth-first search algorithm
+ */
 public class RecursiveBacktrackingGenerator implements Generator {
 
     private final SecureRandom random;
@@ -39,6 +42,13 @@ public class RecursiveBacktrackingGenerator implements Generator {
         return new Maze(height, width, grid);
     }
 
+    /**
+     * function for passage creating
+     * @param directions list of directions in which algorithm can move
+     * @param grid maze grid
+     * @param curRow cell's row, Y coordinate
+     * @param curCol cell's col, X coordinate
+     */
     private void addPassage(List<Integer[]> directions, Cell[][] grid, int curRow, int curCol) {
         Collections.shuffle(directions, random);
         int rowDirection = 0;
@@ -60,10 +70,25 @@ public class RecursiveBacktrackingGenerator implements Generator {
         }
     }
 
+    /**
+     * checks whether cell is in maze bounds
+     * @param row cell's row, Y coordinate
+     * @param col cell's col, X coordinate
+     * @param grid maze grid
+     * @return true if cell is on bounds, false otherwise
+     */
     private boolean inBounds(int row, int col, Cell[][] grid) {
         return row > 0 && col > 0 && row < grid.length - 1 && col < grid[0].length - 1;
     }
 
+    /**
+     * checks whether cell already has one or more passages
+     * @param row cell's row, Y coordinate
+     * @param col cell's col, X coordinate
+     * @param grid maze grid
+     * @param directions list of directions in which algorithm can move
+     * @return true whether the number of passages is greater than 1, false otherwise
+     */
     private boolean hasMoreThanOnePassage(int row, int col, Cell[][] grid, List<Integer[]> directions) {
         int count = 0;
         int rowDirection = 0;
